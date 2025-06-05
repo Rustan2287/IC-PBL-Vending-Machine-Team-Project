@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Wending Machine")
 clock = pygame.time.Clock()
 
-panel_opened = False  # Состояние панели (закрыта/открыта)
+panel_opened = False
 
 def is_panel_clicked(events):
     for event in events:
@@ -34,20 +34,20 @@ def draw_panel():
 # Game Loop
 running = True
 while running:
-    events = pygame.event.get()  # Получаем события один раз
+    events = pygame.event.get() #Get Events
 
     for event in events:
         if event.type == pygame.QUIT:
             running = False
 
-    # Проверяем клик панели
+    # Check if the panel should be opened
     if is_panel_clicked(events):
-        panel_opened = True  # Открываем панель
+        panel_opened = True  # Open the panel when clicked
 
-    # Рисуем фон автомата
+    # draw the background image
     screen.blit(WENDING_MACHINE_IMAGE, (0, 0))
 
-    # Рисуем панель, если открыта
+    # draw the panel if it is opened
     draw_panel()
 
     pygame.display.flip()

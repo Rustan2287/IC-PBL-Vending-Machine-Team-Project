@@ -14,7 +14,10 @@ pygame.display.set_caption("Wending Machine")
 clock = pygame.time.Clock()
 
 panel_opened = False
+rack_opened = False
 
+RACK_POSITION = pygame.Rect(32, 166, 438 - 32, 793 - 166)
+PANEL_POSITION = pygame.Rect(456, 386, 588 - 456, 558 - 386)
 BUTTON_POSITION = (
     pygame.Rect(36, 32, 150 - 36, 150 - 32),     # Button1
     pygame.Rect(191, 30, 305 - 191, 147 - 30),   # Button2
@@ -27,27 +30,39 @@ BUTTON_POSITION = (
     pygame.Rect(353, 355, 461 - 353, 457 - 355), # Button9
 )
 
-def panel(events):
+def mouse_click_handler(events):
     global panel_opened
+
     for event in events:
+        #escape from panel
+        if event.type == pygame.KEYDOWN and event.key in (pygame.K_ESCAPE, pygame.K_RETURN):
+            panel_opened = False
+
+        #Checking click on the panel
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             x, y = event.pos
-            if 456 <= x <= 588 and 386 <= y <= 558:
+
+            #Checking if clicked on panel or rack or card reader or cash reader
+            if PANEL_POSITION.collidepoint(x, y): #Panel
                 panel_opened = True
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            panel_opened = False
+
+            if RACK_POSITION.collidepoint(x, y): #Rack
+                rack_opened = True  
+
+            #Clicked on the Panel
+            if panel_opened:
+                for i, rect in enumerate(BUTTON_POSITION):
+                    if rect.collidepoint(x, y):
+                        print("Ты нажал кнопку:", i + 1)
+            
+            #Clicked on the Rack
+            if rack_opened:
+                pass
+
     if panel_opened:
         screen.blit(PANEL_IMAGE, (0, 0))
 
-def get_pressed_button(events):
-    for event in events:
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-            x, y = event.pos
-            for i, rect in enumerate(BUTTON_POSITION):
-                if rect.collidepoint(x, y):
-                    return i + 1
-    return None
-
+#Main
 running = True
 while running:
     events = pygame.event.get()
@@ -56,10 +71,6 @@ while running:
             running = False
 
     screen.blit(WENDING_MACHINE_IMAGE, (0, 0))
-    panel(events)
-    pressed = get_pressed_button(events)
-    if pressed:
-        print("you pressed:", pressed)
 
     pygame.display.flip()
     clock.tick(FPS)

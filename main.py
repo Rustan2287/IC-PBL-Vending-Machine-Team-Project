@@ -69,6 +69,8 @@ def mouse_click_handler(events):
                     if rect.collidepoint(x, y):
                         print("Button pressed:", i + 1)
 
+            
+
     # Display rack overlay
     if rack_opened:
         screen.blit(RACK_IMAGE, (0, 0))

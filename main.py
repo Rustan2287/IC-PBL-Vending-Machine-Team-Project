@@ -79,17 +79,12 @@ def mouse_click_handler(events):
                     if rect.collidepoint(x, y):
                         print("Button pressed:", i + 1)
 
-            
-
-    # Display rack overlay
-    if rack_opened:
-        screen.blit(RACK_IMAGE, (0, 0))
-        Rack()
-        
-
     # Display panel overlay
     if panel_opened:
         screen.blit(PANEL_IMAGE, (0, 0))
+    if rack_opened:
+        screen.blit(RACK_IMAGE, (0, 0))
+        Rack()
 
 # Main game loop
 running = True

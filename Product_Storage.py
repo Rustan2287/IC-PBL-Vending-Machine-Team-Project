@@ -1,4 +1,5 @@
 Rack_Number = {
+# Rack positions for the vending machine
     "1": (0, 20),
     "2": (60, 20),
     "3": (110, 20),

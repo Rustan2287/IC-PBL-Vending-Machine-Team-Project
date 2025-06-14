@@ -43,41 +43,12 @@ BUTTON_POSITION = (
 )
 
 def Rack():
-    # Координаты для отрисовки продуктов (пример, можно настроить по кнопкам)
-    product_positions = [
-        (-5, 20),  # позиция для первого продукта
-        (60, 20), # второго
-        (110, 20),
-        (160, 20),
-        (210, 20),
-        (260, 20),
-        (310, 20),
-        (360, 20),
-        (410, 20),
-    ]
-
-    # Индекс для позиции продукта
-    pos_index = 0
-
-    # Проходим по всем продуктам из базы данных (PS.drinks)
     for product_name, product_info in PS.drinks.items():
-        # Проверяем наличие (count > 0)
         if product_info["count"] > 0:
-            # Загружаем изображение продукта
             product_image = pygame.image.load(product_info["src"])
-            # Масштабируем изображение до размера, например, 100x100
             product_image = pygame.transform.scale(product_image, (90, 100))
-
-            # Берем позицию для отрисовки из списка product_positions
-            if pos_index < len(product_positions):
-                x, y = product_positions[pos_index]
-                # Отрисовываем изображение продукта на экране
-                screen.blit(product_image, (x, y))
-                pos_index += 1
-            else:
-                # Если продуктов больше, чем позиций, можно прекратить
-                break
-
+            x, y = product_info["position"]
+            screen.blit(product_image, (x, y))
 
 
 # Handle mouse clicks and key presses

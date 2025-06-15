@@ -2,6 +2,20 @@ import Product_Storage as PS
 import os
 from datetime import datetime
 
+def calculate_change(change):
+    coins = {"1000": 0, "500": 0, "100": 0}
+
+    coins["1000"] = change // 1000
+    change %= 1000
+
+    coins["500"] = change // 500
+    change %= 500
+
+    coins["100"] = change // 100
+    change %= 100
+
+    return coins
+
 def receipt(product_name, price, PayMethod, money=0):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     filename = f"receipt_{product_name}_{now.replace(':', '-')}.txt"
@@ -39,10 +53,19 @@ def select(number, PayMethod=None, money=0):
         if money < price:
             print("❌ Недостаточно наличных (현금 부족)")
         else:
-            print(f"Оплата наличными: {price}₩")
+            change = money - price
             selected_product["count"] -= 1
-            print(f"✅ Вы купили {product_name} (남은 재고: {selected_product['count']}개)")
+            print(f"✅ Вы купили {product_name} за {price}₩ (남은 재고: {selected_product['count']}개)")
             receipt(product_name, price, PayMethod)
+
+            if change > 0:
+                coins = calculate_change(change)
+                print(f"✅ Сдача (잔돈): {change}₩")
+                print(f" - 1000원: {coins['1000']}개")
+                print(f" - 500원: {coins['500']}개")
+                print(f" - 100원: {coins['100']}개")
+            else:
+                print("✅ Сдачи нет (잔돈 없음)")
 
     elif PayMethod == "card":
         if money >= price:

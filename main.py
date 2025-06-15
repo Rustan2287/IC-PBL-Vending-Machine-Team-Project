@@ -34,7 +34,7 @@ payment_mode = False
 selected_number = ""
 payMethod = None
 user_card_balance= 500000
-user_cash_balance = 0
+total_inserted = 0
 
 # Clickable areas
 RACK_POSITION = pygame.Rect(32, 166, 438 - 32, 793 - 166)
@@ -60,23 +60,37 @@ card_button = pygame.Rect(320, 600, 180, 80)
 def choose_cash():
     cash_font = pygame.font.SysFont(None, 40)
 
-    # Кнопки выбора
     btn_1000 = pygame.Rect(100, 700, 120, 60)
     btn_5000 = pygame.Rect(240, 700, 120, 60)
     btn_10000 = pygame.Rect(380, 700, 120, 60)
+    btn_pay = pygame.Rect(200, 800, 200, 60)
+
+    total_inserted = 0
 
     while True:
+        screen.fill((255, 255, 255))  # Очистка экрана (или вставьте фон)
+        screen.blit(WENDING_MACHINE_IMAGE, (0, 0))
+
+        # Отрисовка кнопок
         pygame.draw.rect(screen, (220, 220, 220), btn_1000)
         pygame.draw.rect(screen, (200, 200, 250), btn_5000)
         pygame.draw.rect(screen, (250, 200, 200), btn_10000)
+        pygame.draw.rect(screen, (180, 255, 180), btn_pay)
 
+        # Тексты на кнопках
         text_1000 = cash_font.render("1000원", True, (0, 0, 0))
         text_5000 = cash_font.render("5000원", True, (0, 0, 0))
         text_10000 = cash_font.render("10000원", True, (0, 0, 0))
+        pay_text = cash_font.render("결제 (Оплатить)", True, (0, 0, 0))
 
         screen.blit(text_1000, (btn_1000.x + 10, btn_1000.y + 15))
         screen.blit(text_5000, (btn_5000.x + 10, btn_5000.y + 15))
         screen.blit(text_10000, (btn_10000.x + 10, btn_10000.y + 15))
+        screen.blit(pay_text, (btn_pay.x + 10, btn_pay.y + 15))
+
+        # Показать текущую сумму
+        total_text = cash_font.render(f"현재 투입 금액: {total_inserted}원", True, (0, 0, 0))
+        screen.blit(total_text, (150, 650))
 
         pygame.display.flip()
 
@@ -87,11 +101,13 @@ def choose_cash():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if btn_1000.collidepoint(event.pos):
-                    return 1000
+                    total_inserted += 1000
                 elif btn_5000.collidepoint(event.pos):
-                    return 5000
+                    total_inserted += 5000
                 elif btn_10000.collidepoint(event.pos):
-                    return 10000
+                    total_inserted += 10000
+                elif btn_pay.collidepoint(event.pos):
+                    return total_inserted
 
 def Rack():
     for product_name, product_info in PS.drinks.items():

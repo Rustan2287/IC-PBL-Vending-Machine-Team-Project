@@ -107,6 +107,7 @@ def mouse_click_handler(events):
                     payment_mode = False
                     rack_opened = False
                     Brain.select(selected_number, payMethod, user_card_balance)
+                    selected_number = ""  # Сбросить выбранный номер после оплаты
                     return  # ← Остановить обработку клика
 
                 elif card_button.collidepoint(x, y):
@@ -115,6 +116,7 @@ def mouse_click_handler(events):
                     payment_mode = False
                     rack_opened = False
                     Brain.select(selected_number, payMethod, user_card_balance)
+                    selected_number = ""  # Сбросить выбранный номер после оплаты
                     return  # ← Остановить обработку клика
 
             # Открытие панели/стойки

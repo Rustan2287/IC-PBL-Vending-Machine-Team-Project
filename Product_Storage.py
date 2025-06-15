@@ -1,15 +1,15 @@
 # 진열대 Y 좌표 값 설정 (모든 음료의 Y 좌표는 동일)
-RACK_Y = 20
+FIRST_FLOAR_RACK = 20
 
 # 음료 진열대 각 칸의 위치 좌표 (X, Y) 딕셔너리
 Rack_Number = {
-    "1": (0, RACK_Y),       # 1번 칸 위치 (왼쪽 끝)
-    "2": (70, RACK_Y),      # 2번 칸 위치
-    "3": (150, RACK_Y),     # 3번 칸 위치
-    "4": (220, RACK_Y),     # 4번 칸 위치
-    "5": (300, RACK_Y),     # 5번 칸 위치
-    "6": (370, RACK_Y),     # 6번 칸 위치
-    "7": (320, RACK_Y)      # 7번 칸 위치 (6번과 X 좌표가 겹침, 수정 필요)
+    "1": (0, FIRST_FLOAR_RACK),       # 1번 칸 위치 (왼쪽 끝)
+    "2": (70, FIRST_FLOAR_RACK),      # 2번 칸 위치
+    "3": (150, FIRST_FLOAR_RACK),     # 3번 칸 위치
+    "4": (220, FIRST_FLOAR_RACK),     # 4번 칸 위치
+    "5": (300, FIRST_FLOAR_RACK),     # 5번 칸 위치
+    "6": (370, FIRST_FLOAR_RACK),     # 6번 칸 위치
+    "7": (440, FIRST_FLOAR_RACK)      # 7번 칸 위치 (6번과 X 좌표가 겹침, 수정 필요)
 }
 
 # 음료 정보 딕셔너리

@@ -57,6 +57,42 @@ BUTTON_POSITION = (
 cash_button = pygame.Rect(100, 600, 180, 80)
 card_button = pygame.Rect(320, 600, 180, 80)
 
+def choose_cash():
+    cash_font = pygame.font.SysFont(None, 40)
+
+    # Кнопки выбора
+    btn_1000 = pygame.Rect(100, 700, 120, 60)
+    btn_5000 = pygame.Rect(240, 700, 120, 60)
+    btn_10000 = pygame.Rect(380, 700, 120, 60)
+
+    while True:
+        pygame.draw.rect(screen, (220, 220, 220), btn_1000)
+        pygame.draw.rect(screen, (200, 200, 250), btn_5000)
+        pygame.draw.rect(screen, (250, 200, 200), btn_10000)
+
+        text_1000 = cash_font.render("1000원", True, (0, 0, 0))
+        text_5000 = cash_font.render("5000원", True, (0, 0, 0))
+        text_10000 = cash_font.render("10000원", True, (0, 0, 0))
+
+        screen.blit(text_1000, (btn_1000.x + 10, btn_1000.y + 15))
+        screen.blit(text_5000, (btn_5000.x + 10, btn_5000.y + 15))
+        screen.blit(text_10000, (btn_10000.x + 10, btn_10000.y + 15))
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if btn_1000.collidepoint(event.pos):
+                    return 1000
+                elif btn_5000.collidepoint(event.pos):
+                    return 5000
+                elif btn_10000.collidepoint(event.pos):
+                    return 10000
+
 def Rack():
     for product_name, product_info in PS.drinks.items():
         if product_info["count"] > 0:
@@ -104,11 +140,15 @@ def mouse_click_handler(events):
                 if cash_button.collidepoint(x, y):
                     payMethod = "cash"
                     print("Вы выбрали 현금 (Cash)")
+
+                    cash = choose_cash()  # ← выбор купюры
+                    print(f"Вы ввели: {cash}원")
+
                     payment_mode = False
                     rack_opened = False
-                    Brain.select(selected_number, payMethod, user_card_balance)
-                    selected_number = ""  # Сбросить выбранный номер после оплаты
-                    return  # ← Остановить обработку клика
+                    Brain.select(selected_number, payMethod, cash)  # теперь передаём сумму
+                    selected_number = ""
+                    return  # ← Остановить обработку клика  
 
                 elif card_button.collidepoint(x, y):
                     payMethod = "card"

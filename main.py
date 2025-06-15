@@ -21,7 +21,7 @@ PANEL_IMAGE = pygame.image.load("src/assets/Wending Machine/Wending Machine Pane
 # Pygame 초기화 및 화면 설정
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))  # 윈도우 크기 설정
-pygame.display.set_caption("자동판매기")  # 윈도우 제목 설정
+pygame.display.set_caption("자판기")  # 윈도우 제목 설정
 clock = pygame.time.Clock()  # FPS 제어용 클락 객체
 
 # 폰트 설정 (한글 폰트 포함)

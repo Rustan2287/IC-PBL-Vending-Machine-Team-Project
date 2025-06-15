@@ -53,7 +53,7 @@ def select(number, PayMethod=None, money=0):
             break
 
     if selected_product is None:
-        print("❌ 없는 제품을 선택했습니다 (존재하지 않는 제품 선택)")
+        print("없는 제품을 선택했습니다 (존재하지 않는 제품 선택)")
         return
     
     price = selected_product["price"]
@@ -63,34 +63,34 @@ def select(number, PayMethod=None, money=0):
         if PayMethod == "cash":
             # 현금 투입액이 가격보다 적으면 실패
             if money < price:
-                print("❌ 현금 부족")
+                print("현금 부족")
             else:
                 change = money - price  # 잔돈 계산
                 selected_product["count"] -= 1  # 재고 차감
-                print(f"✅ 구매완료 {product_name} 가격 {price}₩ (남은 재고: {selected_product['count']}개)")
+                print(f"구매완료 {product_name} 가격 {price}₩ (남은 재고: {selected_product['count']}개)")
                 receipt(product_name, price, PayMethod)  # 영수증 출력
 
                 if change > 0:
                     coins = calculate_change(change)  # 잔돈 동전별 계산
-                    print(f"✅ 잔돈: {change}₩")
+                    print(f"잔돈: {change}₩")
                     print(f" - 1000원: {coins['1000']}개")
                     print(f" - 500원: {coins['500']}개")
                     print(f" - 100원: {coins['100']}개")
                 else:
-                    print("✅ 잔돈 없음")
+                    print("잔돈 없음")
 
         elif PayMethod == "card":
             # 카드 잔액이 충분한지 확인
             if money >= price:
                 money -= price  # 결제 후 잔액 차감
                 selected_product["count"] -= 1  # 재고 차감
-                print(f"✅ 카드 결제 성공. 카드 잔액: {money}₩")
-                print(f"✅ 구매완료 {product_name} (남은 재고: {selected_product['count']}개)")
+                print(f"카드 결제 성공. 카드 잔액: {money}₩")
+                print(f"구매완료 {product_name} (남은 재고: {selected_product['count']}개)")
                 receipt(product_name, price, PayMethod, money)  # 영수증 출력 및 잔액 포함
             else:
-                print("❌ 카드 잔액 부족")
+                print("카드 잔액 부족")
 
         else:
-            print("❌ 결제 방법이 선택되지 않음")
+            print("결제 방법이 선택되지 않음")
     else:
-        print("❌ 상품 매진")
+        print("상품 매진")

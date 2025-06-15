@@ -1,15 +1,24 @@
-# IC-PBL-Vending-Machine-Team-Project
-Team PBL
-Code By Li Vladislav Alekseevich
-Design by Li Vladislav
+# IC-PBL Vending Machine Team Project
 
-You can use code and assets for free no copyright
+## Overview
+This is a Python-based vending machine simulation project created for the IC PBL team project at Hanyang University (ERICA). The project was developed by the PBL team, with coding and design led by **Li Vladislav Alekseevich**.
 
-In this repository made by PBl team for IC PBL team project in Hanyang University(ERICA) 
+The goal of this project is to simulate a vending machine's operation, including item selection, payment handling, and inventory tracking, with a graphical interface powered by **Pygame**.
 
-# Vending Machine
-I made Vending Machine by using Python language and pygame module
+## Features
+- Interactive UI using `pygame`
+- Item selection and purchasing system
+- Basic inventory and product storage logic
+- Simulated coin insertion/payment
+- Modular code design (`Brain.py`, `Product_Storage.py`, `main.py`)
 
-I used pygame module for making more easiller for making UI/UX and some events
+## Technologies Used
+- **Python 3**
+- **Pygame** (for UI and event handling)
 
+## Usage
+1. Make sure you have Python installed.
+2. Install pygame:
+   ```bash
+   pip install pygame
 

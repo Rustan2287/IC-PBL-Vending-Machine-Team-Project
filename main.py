@@ -66,12 +66,15 @@ def mouse_click_handler(events):
             x, y = event.pos
 
             # Check if the panel area was clicked
+                        # Panel has higher priority
             if PANEL_POSITION.collidepoint(x, y):
                 panel_opened = True
+                rack_opened = False  # Закрыть полку, если открыли панель
 
-            # Check if the rack area was clicked
-            if RACK_POSITION.collidepoint(x, y):
+            elif RACK_POSITION.collidepoint(x, y) and not panel_opened:
                 rack_opened = True
+                panel_opened = False  # Закрыть панель, если открыли полку
+
 
             # If panel is open, check which button was clicked
             if panel_opened:

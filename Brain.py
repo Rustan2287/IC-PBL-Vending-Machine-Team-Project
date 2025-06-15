@@ -38,7 +38,7 @@ def receipt(product_name, price, PayMethod, money=0):
             f.write(f"잔액: {money}₩\n")  # 카드 결제 시 남은 잔액 표시
         f.write(f"구매 시간: {now}\n")
         f.write("====================\n")
-    print(f"✅ 영수증 저장함: {filepath}")
+    print(f"영수증 저장함: {filepath}")
 
 # 음료 선택 및 결제 처리 함수
 # number: 선택한 음료 번호, PayMethod: 결제 방식 ('cash' 또는 'card'), money: 투입 금액 또는 카드 잔액

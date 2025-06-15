@@ -15,7 +15,7 @@ drinks = {
     "fanta": {
         "price": 1900,
         "src": "src/assets/Product/fanta.jpg",
-        "count": 20,
+        "count": 1,
         "position": Rack_Number["1"],
         "number": "1"
     },

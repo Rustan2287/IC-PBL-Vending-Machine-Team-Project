@@ -48,34 +48,36 @@ def select(number, PayMethod=None, money=0):
         return
     
     price = selected_product["price"]
-
-    if PayMethod == "cash":
-        if money < price:
-            print("❌ Недостаточно наличных (현금 부족)")
-        else:
-            change = money - price
-            selected_product["count"] -= 1
-            print(f"✅ Вы купили {product_name} за {price}₩ (남은 재고: {selected_product['count']}개)")
-            receipt(product_name, price, PayMethod)
-
-            if change > 0:
-                coins = calculate_change(change)
-                print(f"✅ Сдача (잔돈): {change}₩")
-                print(f" - 1000원: {coins['1000']}개")
-                print(f" - 500원: {coins['500']}개")
-                print(f" - 100원: {coins['100']}개")
+    if selected_product["count"] != 0:
+        if PayMethod == "cash":
+            if money < price:
+                print("❌ Недостаточно наличных (현금 부족)")
             else:
-                print("✅ Сдачи нет (잔돈 없음)")
+                change = money - price
+                selected_product["count"] -= 1
+                print(f"✅ Вы купили {product_name} за {price}₩ (남은 재고: {selected_product['count']}개)")
+                receipt(product_name, price, PayMethod)
 
-    elif PayMethod == "card":
-        if money >= price:
-            money -= price
-            selected_product["count"] -= 1
-            print(f"✅ Оплата картой успешна. Остаток на карте: {money}₩")
-            print(f"✅ Вы купили {product_name} (남은 재고: {selected_product['count']}개)")
-            receipt(product_name, price, PayMethod, money)
+                if change > 0:
+                    coins = calculate_change(change)
+                    print(f"✅ Сдача (잔돈): {change}₩")
+                    print(f" - 1000원: {coins['1000']}개")
+                    print(f" - 500원: {coins['500']}개")
+                    print(f" - 100원: {coins['100']}개")
+                else:
+                    print("✅ Сдачи нет (잔돈 없음)")
+
+        elif PayMethod == "card":
+            if money >= price:
+                money -= price
+                selected_product["count"] -= 1
+                print(f"✅ Оплата картой успешна. Остаток на карте: {money}₩")
+                print(f"✅ Вы купили {product_name} (남은 재고: {selected_product['count']}개)")
+                receipt(product_name, price, PayMethod, money)
+            else:
+                print("❌ Недостаточно средств на карте (잔액 부족)")
+
         else:
-            print("❌ Недостаточно средств на карте (잔액 부족)")
-
+            print("❌ Не выбран способ оплаты (결제 방법이 선택되지 않음)")
     else:
-        print("❌ Не выбран способ оплаты (결제 방법이 선택되지 않음)")
+        print("❌ Товар распродан (상품 매진)")

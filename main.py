@@ -60,7 +60,7 @@ cash_button = pygame.Rect(100, 600, 180, 80)
 card_button = pygame.Rect(320, 600, 180, 80)
 
 def choose_cash():
-    cash_font = pygame.font.Font(font_path, 40)
+    cash_font = pygame.font.Font(font_path, 20)
 
     btn_1000 = pygame.Rect(100, 700, 120, 60)
     btn_5000 = pygame.Rect(240, 700, 120, 60)
